@@ -1,13 +1,9 @@
-package main
+package global
 
-import "C"
 import (
 	"encoding/json"
-
-	"github.com/hiddify/libcore/bridge"
 )
 
-var statusPropagationPort int64
 var status = Stopped
 
 type StatusMessage struct {
@@ -16,18 +12,17 @@ type StatusMessage struct {
 	Message *string `json:"message"`
 }
 
-func propagateStatus(newStatus string) {
+func propagateStatus(newStatus string) string {
 	status = newStatus
 
 	msg, _ := json.Marshal(StatusMessage{Status: status})
-	bridge.SendStringToPort(statusPropagationPort, string(msg))
+	return string(msg)
 }
 
-func stopAndAlert(alert string, err error) error {
+func stopAndAlert(alert string, err error) string {
 	status = Stopped
 	message := err.Error()
 
 	msg, _ := json.Marshal(StatusMessage{Status: status, Alert: &alert, Message: &message})
-	bridge.SendStringToPort(statusPropagationPort, string(msg))
-	return nil
+	return string(msg)
 }

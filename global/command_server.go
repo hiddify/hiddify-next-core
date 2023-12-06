@@ -1,4 +1,4 @@
-package main
+package global
 
 import (
 	"github.com/sagernet/sing-box/experimental/libbox"
@@ -19,10 +19,17 @@ func (csh *CommandServerHandler) ServiceReload() error {
 		commandServer = nil
 	}
 	if box != nil {
-		box.Close()
+		err := box.Close()
+		if err != nil {
+			panic("Error:" + err.Error())
+		}
 		box = nil
 	}
-	return startService(true)
+	ipv6, serverPort, strictRoute, endpointIndependentNat, stack, err := ReadParameters()
+	if err != nil {
+		panic("Error:" + err.Error())
+	}
+	return StartServiceC(true, MakeConfig(ipv6, serverPort, strictRoute, endpointIndependentNat, stack))
 }
 
 func (csh *CommandServerHandler) GetSystemProxyStatus() *libbox.SystemProxyStatus {

@@ -2,66 +2,36 @@ package main
 
 import (
 	"embed"
+	"flag"
 	"fmt"
-	"github.com/hiddify/libcore/shared"
-	"github.com/sagernet/sing-box/experimental/libbox"
-	"github.com/sagernet/sing-box/log"
+	"github.com/hiddify/libcore/utils"
+	"github.com/hiddify/libcore/web"
 	"os"
-	"time"
 )
 
 //go:embed bin/*
 var bin embed.FS
-var box *libbox.BoxService
-var configOptions *shared.ConfigOptions
-var logFactory *log.Factory
-
-func startService(delayStart bool) error {
-	content, err := bin.ReadFile("bin/config.json")
-	if err != nil {
-		return stopAndAlert(EmptyConfiguration, err)
-	}
-	options, err := parseConfig(string(content))
-	if err != nil {
-		return stopAndAlert(EmptyConfiguration, err)
-	}
-	options = shared.BuildConfig(*configOptions, options)
-
-	err = startCommandServer(*logFactory)
-	if err != nil {
-		return stopAndAlert(StartCommandServer, err)
-	}
-
-	instance, err := NewService(options)
-	if err != nil {
-		return stopAndAlert(CreateService, err)
-	}
-
-	if delayStart {
-		time.Sleep(250 * time.Millisecond)
-	}
-
-	err = instance.Start()
-	if err != nil {
-		return stopAndAlert(StartService, err)
-	}
-	box = instance
-	commandServer.SetService(box)
-
-	propagateStatus(Started)
-	return nil
-}
 
 func main() {
 	args := os.Args
-	switch args[1] {
-	case "service-mode":
-		err := startService(false)
-		if err != nil {
-			fmt.Println("Error:", err)
+	if len(args) > 1 {
+		switch args[1] {
+		case "start-service":
+			Port := flag.Int("port", 6548, "")
+			web.StartWebServer(*Port)
+		case "gen-cert":
+			err := os.MkdirAll("cer", os.ModePerm)
+			if err != nil {
+				fmt.Println("Error:", err)
+				return
+			}
+			utils.GenerateCertificate("cert/server-cert.pem", "cert/server-key.pem", true)
+			utils.GenerateCertificate("cert/client-cert.pem", "cert/client-key.pem", false)
 		}
-	default:
+	} else {
+		fmt.Println("Error:", "not enough parameters")
 		usage, _ := bin.ReadFile("bin/usage.txt")
-		fmt.Println("Usage:", string(usage))
+		fmt.Println(string(usage))
 	}
+
 }

@@ -1,1 +1,2 @@
-service-mode : run service
+start-service : start web server and listen on port 6548 by Default | -port int
+stop-service : stop service

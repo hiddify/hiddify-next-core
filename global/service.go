@@ -1,4 +1,4 @@
-package main
+package global
 
 import (
 	"context"
@@ -47,14 +47,14 @@ func NewService(options option.Options) (*libbox.BoxService, error) {
 		return nil, E.Cause(err, "create service")
 	}
 	runtimeDebug.FreeOSMemory()
-	service := libbox.NewBoxService(
+	Service := libbox.NewBoxService(
 		ctx,
 		cancel,
 		instance,
 		pauseManager,
 		urlTestHistoryStorage,
 	)
-	return &service, nil
+	return &Service, nil
 }
 
 func parseConfig(configContent string) (option.Options, error) {
