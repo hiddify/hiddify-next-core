@@ -36,7 +36,7 @@ func GenerateCertificate(certPath, keyPath string, isServer bool) {
 
 	template := x509.Certificate{
 		SerialNumber:          big.NewInt(1),
-		Subject:               pkix.Name{Organization: []string{"Go mTLS Example"}},
+		Subject:               pkix.Name{Organization: []string{"Secure data transfer"}},
 		NotBefore:             notBefore,
 		NotAfter:              notAfter,
 		KeyUsage:              keyUsage,
