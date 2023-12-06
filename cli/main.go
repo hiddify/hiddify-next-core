@@ -20,7 +20,7 @@ func main() {
 			Port := flag.Int("port", 6548, "")
 			web.StartWebServer(*Port)
 		case "gen-cert":
-			err := os.MkdirAll("cer", os.ModePerm)
+			err := os.MkdirAll("cert", os.ModePerm)
 			if err != nil {
 				fmt.Println("Error:", err)
 				return
