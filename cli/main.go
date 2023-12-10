@@ -62,7 +62,7 @@ func main() {
 				fmt.Println("Error:", err)
 			}
 		case "gen-cert":
-			err := os.MkdirAll("cert", os.ModePerm)
+			err = os.MkdirAll("cert", os.ModePerm)
 			if err != nil {
 				fmt.Println("Error:", err)
 				return
