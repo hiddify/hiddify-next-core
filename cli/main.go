@@ -51,6 +51,11 @@ func main() {
 			if err != nil {
 				fmt.Println("Error:", err)
 			}
+		case "stop-service":
+			err = svc.Stop()
+			if err != nil {
+				fmt.Println("Error:", err)
+			}
 		case "install-service":
 			err = svc.Install()
 			if err != nil {
