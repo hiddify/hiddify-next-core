@@ -36,6 +36,7 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/insomniacslk/dhcp v0.0.0-20231126010706-b0416c0f187a // indirect
 	github.com/josharian/native v1.1.0 // indirect
+	github.com/kardianos/service v1.2.2 // indirect
 	github.com/klauspost/compress v1.15.15 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/libdns/alidns v1.0.3 // indirect
