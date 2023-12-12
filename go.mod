@@ -3,12 +3,12 @@ module github.com/hiddify/libcore
 go 1.21.1
 
 require (
+	github.com/hectane/go-acl v0.0.0-20230122075934-ca0b05cb1adb
 	github.com/hiddify/ray2sing v0.0.0-20231126095652-91be355a9a97
 	github.com/sagernet/gomobile v0.0.0-20230915142329-c6740b6d2950
 	github.com/sagernet/sing v0.2.18-0.20231124125253-2dcabf4bfcbc
 	github.com/sagernet/sing-box v1.7.0
 	github.com/sagernet/sing-dns v0.1.11
-	github.com/spf13/cobra v1.8.0
 	github.com/xmdhs/clash2singbox v0.0.2
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -36,6 +36,7 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/insomniacslk/dhcp v0.0.0-20231126010706-b0416c0f187a // indirect
 	github.com/josharian/native v1.1.0 // indirect
+	github.com/kardianos/service v1.2.2 // indirect
 	github.com/klauspost/compress v1.15.15 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/libdns/alidns v1.0.3 // indirect
