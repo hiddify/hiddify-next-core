@@ -1,3 +1,5 @@
+//go:build !windows
+
 package main
 
 import (
@@ -34,6 +36,7 @@ func (m *hiddifyNextCore) run() {
 
 func main() {
 	args := os.Args
+	//TODO: fix this
 	svcConfig := &service.Config{
 		Name:        "hiddify_next_core",
 		DisplayName: "hiddify next core",
@@ -58,6 +61,7 @@ func main() {
 			}
 		case "install-service":
 			err = svc.Install()
+			os.Chmod("/etc/systemd/system/hiddify_next_core.service", 600)
 			if err != nil {
 				fmt.Println("Error:", err)
 			}
